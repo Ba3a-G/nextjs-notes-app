@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 interface Note {
   id: string;
@@ -77,22 +77,7 @@ export default function NotesPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">Team Notes</h1>
-          <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-400">
-              Signed in as {session?.user?.email}
-            </span>
-            <button
-              onClick={() => signOut({ callbackUrl: '/' })}
-              className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-gray-900 shadow rounded-lg p-6 mb-8">
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
