@@ -12,13 +12,19 @@ export async function middleware(request: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET
   });
   
-  if (!token) {
-    return NextResponse.redirect(new URL("/auth/signin", request.url));
+  // If the user is trying to access the dashboard without a token
+  if (request.nextUrl.pathname.startsWith('/dashboard') && !token) {
+    return NextResponse.redirect(new URL('/auth/signin', request.url));
+  }
+
+  // If the user has a token and tries to access signin page, redirect to dashboard
+  if (request.nextUrl.pathname.startsWith('/auth/signin') && token) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
   
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: ['/dashboard/:path*', '/auth/signin'],
 }; 
